@@ -1,0 +1,18 @@
+<h1>Update Jeu #<?= $jeu_id ?></h1>
+<form method="POST" action="?page=adminpost&action=update&id=<?= $le_jeu['id'] ?>">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" value="<?= $le_jeu['title'] ?>" class="form-control" name="title" id="title" placeholder="Add a title">
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea maxlength="255" class="form-control" name="description" id="description" placeholder="Add a description"><?= $le_jeu['description'] ?></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="image" class="form-label">Image</label>
+    <input type="text" value="<?= $le_jeu['image'] ?>" class="form-control" name="image" id="image" placeholder="Add an url">
+  </div>
+  <div class="mb-3">
+    <input type="submit" class="btn btn-success" value="Update this Post Now !">
+  </div>
+</form>
