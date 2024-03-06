@@ -2,15 +2,16 @@
 namespace App\Controllers;
 
 use App\Controllers\AbstractController;
-use App\Models\PostManager;
+use App\Models\JeuManager;
 use App\Models\UserManager;
+
 
 class GalleryController extends AbstractController
 {
     public function index(){
         $title = "Hello this is the GalleryController ;)";
-        $dbPost = new PostManager();
-        $posts = $dbPost->getAll(null,"SELECT post.*,contact.firstname,contact.lastname FROM post,contact WHERE post.user_id=contact.user_id ORDER BY id DESC");
+        $dbJeu = new JeuManager();
+        $jeux = $dbJeu->getAll(null,"SELECT jeu.*,contact.prenom,contact.nom FROM jeu,contact WHERE jeu.user_id=contact.user_id ORDER BY id ASC");
         
         $dbUser = new UserManager();
         $users = $dbUser->getAll();
@@ -19,7 +20,7 @@ class GalleryController extends AbstractController
 
         $this->render($template,[
             'title'=>$title,
-            'posts'=>$posts,
+            'jeux'=>$jeux,
             'users'=>$users
         ]);
     }

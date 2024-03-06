@@ -1,6 +1,6 @@
 <h1><?= CONFIG_SITE_TITLE ?></h1>
 <?php if ($auth::isRole("ROLE_ADMIN") ): ?>
-<p>Welcom dear <strong><?= $_SESSION['user']['firstname']  ?> <?= $_SESSION['user']['lastname']  ?></strong>  !</p>
+<p>Welcom dear <strong><?= $_SESSION['user']['prenom']  ?> <?= $_SESSION['user']['nom']  ?></strong>  !</p>
 <?php endif; ?>
 <!-- CAROUSSEL DYNAMIQUE -->
 <div id="caroussel" class="carousel slide" data-bs-ride="carousel">
@@ -11,13 +11,13 @@
     </div>
     <div class="carousel-inner">
         <!-- DEBUT DE LA BOUCLE FOREACH -->
-        <?php foreach ($jeux as $key => $jeu) : ?>
+        <?php foreach ($jeux as $key => $game) : ?>
 
             <div class="carousel-item <?php if ($key===array_key_first($jeux)) echo "active" ?>">
-                <img src="<?= $jeu['image'] ?>" class="d-block w-100" alt="<?= $jeu['nom'] ?>">
+                <img src="<?= $game['image'] ?>" class="d-block w-100" alt="<?= $game['nom'] ?>">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5><?= $jeu['nom'] ?></h5>
-                    <p><?= $jeu['description'] ?></p>
+                    <h5><?= $game['nom'] ?></h5>
+                    <p><?= $game['description'] ?></p>
                 </div>
             </div>
 

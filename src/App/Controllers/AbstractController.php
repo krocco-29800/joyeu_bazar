@@ -16,10 +16,10 @@ abstract class AbstractController{
         // afin de simplifier la syntaxe dans les vues
         // $auth::isRole("ROLE_ADMIN"); mieux que App\Services\Authenticator::isRole("ROLE_ADMIN")
         $auth = Authenticator::class;
-        // Quand on aura $data['posts'];
+        // Quand on aura $data['jeux'];
         // Grace à extract($data);
         // On pourra récupérer directement
-        // $posts dans le template
+        // $jeux dans le template
         extract($data);
         include $templatePath;
         // On charge la mémoire tempon dans le template

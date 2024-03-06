@@ -24,8 +24,8 @@ class ContactController extends AbstractController
             $password = password_hash($password,PASSWORD_DEFAULT);
             // On déclare les champs qui vont être utilisés
             // Afin de les traiter en amont de l'insertion
-            $prenom = Utils::inputCleaner($_POST['firstname']);
-            $nom = Utils::inputCleaner($_POST['lastname']);
+            $prenom = Utils::inputCleaner($_POST['prenom']);
+            $nom = Utils::inputCleaner($_POST['nom']);
             $message = Utils::inputCleaner($_POST['message']); 
             // Au départ on suppose qu'il n'y a pas d'erreur
             // Le tableau des erreurs est donc vide

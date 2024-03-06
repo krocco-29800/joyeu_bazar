@@ -30,7 +30,7 @@ class Contact extends AbstractTable
     }
 
     /**
-     * Get the value of firstname
+     * Get the value of prenom
      */
     public function getPrenom(): ?string
     {
@@ -38,7 +38,7 @@ class Contact extends AbstractTable
     }
 
     /**
-     * Set the value of firstname
+     * Set the value of prenom
      */
     public function setPrenom(?string $prenom): self
     {
@@ -48,7 +48,7 @@ class Contact extends AbstractTable
     }
 
     /**
-     * Get the value of lastname
+     * Get the value of nom
      */
     public function getNom(): ?string
     {
@@ -56,7 +56,7 @@ class Contact extends AbstractTable
     }
 
     /**
-     * Set the value of lastname
+     * Set the value of nom
      */
     public function setNom(?string $nom): self
     {

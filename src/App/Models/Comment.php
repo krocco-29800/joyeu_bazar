@@ -9,7 +9,7 @@ class Comment extends AbstractTable
     private ?string $created_at = null;
 
     /**
-     * Get the value of post_id
+     * Get the value of jeu_id
      */
     public function getJeuId(): ?int
     {
@@ -17,7 +17,7 @@ class Comment extends AbstractTable
     }
 
     /**
-     * Set the value of post_id
+     * Set the value of jeu_id
      */
     public function setJeuId(?int $jeu_id): self
     {

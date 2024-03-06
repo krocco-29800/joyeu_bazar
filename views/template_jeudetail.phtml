@@ -1,25 +1,25 @@
-<h1 class="mt-3"><?= $article['title'] ?></h1>
+<h1 class="mt-3"><?= $article['nom'] ?></h1>
 <section id="article row">
     <article class="col-12">
         <div class="card mb-3">
-            <img src="<?= $article['image'] ?>" class="card-img-top" alt="<?= $article['title'] ?>">
+            <img src="<?= $article['image'] ?>" class="card-img-top" alt="<?= $article['nom'] ?>">
             <div class="card-body">
-                <h5 class="card-title"><?= $article['title'] ?></h5>
+                <h5 class="card-nom"><?= $article['nom'] ?></h5>
                 <p class="card-text"><?= $article['description'] ?></p>
                 <div class="container-fluid info">
                     <p class="row">
-                        <span class="col-6"><small>By:<strong>&nbsp;<?= $article['firstname'] ?>&nbsp;<?= $article['lastname'] ?></strong></small></span>
+                        <span class="col-6"><small>By:<strong>&nbsp;<?= $article['prenom'] ?>&nbsp;<?= $article['nom'] ?></strong></small></span>
                         <span class="col-6 text-end"><small>Date:<strong>&nbsp;<?= $article['created_at'] ?></strong></small></span>
                     </p>
                 </div>
             </div>
         </div>
     </article>
-    <h2>Comments for Post# <?= $post_id ?></h2>
+    <h2>Comments for Jeu# <?= $jeu_id ?></h2>
     <?php foreach($comments as $comment): ?>
     <div class="card comment mb-2">
     <div class="card-header row">
-    <span class="col-6"><small>By:<strong>&nbsp;<?= $comment['firstname'] ?>&nbsp;<?= $comment['lastname'] ?></strong></small></span>
+    <span class="col-6"><small>By:<strong>&nbsp;<?= $comment['prenom'] ?>&nbsp;<?= $comment['nom'] ?></strong></small></span>
                         <span class="col-6 text-end"><small>Date:<strong>&nbsp;<?= $comment['created_at'] ?></strong></small></span>
     </div>
     <ul class="list-group list-group-flush">
@@ -31,7 +31,7 @@
 <section id="comments">
     <h2>Leave a comment here</h2>
     <?php if ($auth::isRole("ROLE_MEMBER")): ?>
-        <form method="POST" action="?page=postdetail&action=add_comment&id=<?= $post_id ?>">
+        <form method="POST" action="?page=jeudetail&action=add_comment&id=<?= $jeu_id ?>">
         <div class="col-12">
             <div class="form-floating mb-3">
                 <textarea rows="10" maxlength="255" class="form-control" placeholder="Leave a message here" id="comment" name="comment"></textarea>

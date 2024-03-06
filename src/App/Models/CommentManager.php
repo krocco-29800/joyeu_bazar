@@ -15,7 +15,7 @@ class CommentManager extends AbstractManager
     public function deleteComments($jeu_id = null)
     {
         if (!is_null($jeu_id)){
-            self::$db->query("DELETE FROM ".self::$tableName." WHERE post_id=?",[$jeu_id]);
+            self::$db->query("DELETE FROM ".self::$tableName." WHERE jeu_id=?",[$jeu_id]);
             return true;
         }
         return false;

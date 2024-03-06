@@ -1,40 +1,40 @@
 <h1>Admin</h1>
 <h2><?= $title ?></h2>
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, necessitatibus voluptatem dignissimos a sunt magnam ullam.</p>
-<h2>Handle Posts</h2>
-<p><a class="btn btn-success" href="?page=adminpost" role="button">Add a new Post</a></p>
+<h2>Liste des jeux</h2>
+<p><a class="btn btn-success" href="?page=adminjeu" role="button">Add a new Jeu</a></p>
 <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">id</th>
             <th scope="col">Image</th>
-            <th scope="col">Title</th>
+            <th scope="col">nom</th>
             <th scope="col">Description</th>
             <th scope="col">Created At</th>
             <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($posts as $post) : ?>
+        <?php foreach ($jeux as $jeu) : ?>
             <tr>
-            <th scope="row"><?= $post['id'] ?></th>
-            <td><img src="<?= $post['image'] ?>" alt="<?= $post['title'] ?>" class="thumbnail"></td>
-            <td><?= $post['title'] ?></td>
-            <td><?= substr( $post['description'],0,40 ) ?>...</td>
-            <td><?= $post['created_at'] ?></td>
-            <td><a class="btn btn-warning mb-3" href="?page=adminpost&action=update&id=<?= $post['id'] ?>" role="button">Update</a>
-            <br><a class="btn btn-danger" href="javascript:deletePost(<?= $post['id'] ?>)" role="button">Delete</a>
+            <th scope="row"><?= $jeu['id'] ?></th>
+            <td><img src="<?= $jeu['image'] ?>" alt="<?= $jeu['nom'] ?>" class="thumbnail"></td>
+            <td><?= $jeu['nom'] ?></td>
+            <td><?= substr( $jeu['description'],0,40 ) ?>...</td>
+            <td><?= $jeu['created_at'] ?></td>
+            <td><a class="btn btn-warning mb-3" href="?page=adminjeu&action=update&id=<?= $jeu['id'] ?>" role="button">Update</a>
+            <br><a class="btn btn-danger" href="javascript:deleteJeu(<?= $jeu['id'] ?>)" role="button">Delete</a>
             </td>
             </tr>
         <?php endforeach ?>
     </tbody>
 </table>
-<p><a class="btn btn-success" href="?page=adminpost" role="button">Add a new Post</a></p>
+<p><a class="btn btn-success" href="?page=adminjeu" role="button">Add a new Jeu</a></p>
 <script>
-    function deletePost(id){
-        const question = window.confirm("Are you sure you want to delete the post "+id+" ?");
+    function deleteJeu(id){
+        const question = window.confirm("Are you sure you want to delete the jeu "+id+" ?");
         if (question===true){
-            location.href = "?page=adminpost&action=delete&id="+id;
+            location.href = "?page=adminjeu&action=delete&id="+id;
         }
     }
 </script>

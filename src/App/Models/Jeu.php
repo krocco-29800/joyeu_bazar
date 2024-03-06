@@ -5,7 +5,7 @@ use App\Models\AbstractTable;
 
 class Jeu extends AbstractTable
 {
-
+    protected ?int $user_id = null;
     protected ?string $nom = null;
     protected ?string $image = null;
     protected ?int $editeur_id = null;
@@ -18,6 +18,10 @@ class Jeu extends AbstractTable
     protected ?string $univers = null;
     protected ?string $mot_clef = null;
 
+    
+    public function setUserId($user_id){
+        $this->user_id = $user_id;
+    }
     public function setNom($nom){
         $this->nom = $nom;
     }
@@ -63,7 +67,8 @@ class Jeu extends AbstractTable
     }   
     
     public function toArray(){
-        $postArray = [
+        $jeuArray = [
+            $this->user_id,
             $this->nom,
             $this->image,
             $this->editeur_id,
@@ -76,7 +81,7 @@ class Jeu extends AbstractTable
             $this->univers,
             $this->mot_clef
         ];
-        return $postArray;
+        return $jeuArray;
     }
 
 }

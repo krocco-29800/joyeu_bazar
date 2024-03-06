@@ -11,7 +11,7 @@ abstract class AbstractManager
     public function getAll($nb=null,$query=null){
         $limit = !is_null($nb) ? " LIMIT ".$nb : "";
         $results = [];
-        $default_query = "SELECT * FROM ".self::$tableName." ORDER BY id DESC";
+        $default_query = "SELECT * FROM ".self::$tableName." ORDER BY id ASC";
         $sql_query = $query===null ? $default_query  : $query;
         $results = self::$db->selectAll($sql_query.$limit);
         return $results;
@@ -42,7 +42,7 @@ abstract class AbstractManager
         $str_values = implode(",",$values); // ?,?,?
         // On veut obtenir une requête du type:
         // INSERT INTO user (email,password,roles) VALUES (?,?,?) => exemple table user
-        // INSERT INTO post (user_id,title,description,image,updated_at) VALUES (?,?,?,?,?) => exemple table post
+        // INSERT INTO jeu (user_id,nom,description,image,updated_at) VALUES (?,?,?,?,?) => exemple table jeu
         $insert = self::$db->query("INSERT INTO ".self::$tableName." (".$str_fields.") VALUES (".$str_values.")",$data);
         return $insert;
     }
@@ -51,7 +51,7 @@ abstract class AbstractManager
     {
         $fields = self::$obj->getAttributes();
         foreach($fields as $k => $v){ 
-            $values[] = $v."=?"; // title=?,description=?,image=?"
+            $values[] = $v."=?"; // nom=?,description=?,image=?"
         }
         $str_values = implode(",",$values);
         $update = self::$db->query("UPDATE ".self::$tableName." SET ".$str_values." WHERE id='".$id."'",$data);
