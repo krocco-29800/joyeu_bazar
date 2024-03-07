@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 06 mars 2024 à 08:07
+-- Généré le : jeu. 07 mars 2024 à 09:29
 -- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.0.30
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `jeu_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL DEFAULT 5,
   `message` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,12 +44,19 @@ CREATE TABLE `comment` (
 CREATE TABLE `contact` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `prenom` varchar(35) NOT NULL,
-  `nom` varchar(55) NOT NULL,
+  `prenom` varchar(60) NOT NULL,
+  `nom` varchar(60) NOT NULL,
   `message` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `contact`
+--
+
+INSERT INTO `contact` (`id`, `user_id`, `prenom`, `nom`, `message`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Marc', 'la soud', '', '2024-03-06 11:36:41', '2024-03-06 11:36:41');
 
 -- --------------------------------------------------------
 
@@ -85,7 +92,45 @@ INSERT INTO `editeur` (`id`, `nom`) VALUES
 (16, 'Spin Masters'),
 (17, 'Catchup'),
 (18, 'Space cowboys'),
-(19, 'Old chap');
+(19, 'Old chap'),
+(20, 'Cocktail game'),
+(21, 'Igari'),
+(22, 'Eage'),
+(23, 'Iello'),
+(24, 'Asmodee'),
+(25, 'Indie'),
+(26, 'Repos production'),
+(27, 'Don\'t panic game'),
+(28, 'Filosofia'),
+(29, 'infinity'),
+(30, 'Seatdown'),
+(31, 'Gigamic'),
+(32, 'Libellud'),
+(33, 'Blackplag'),
+(34, 'Hurricane'),
+(35, 'Spin Masters'),
+(36, 'Catchup'),
+(37, 'Space cowboys'),
+(38, 'Old chap'),
+(39, 'Cocktail game'),
+(40, 'Igari'),
+(41, 'Eage'),
+(42, 'Iello'),
+(43, 'Asmodee'),
+(44, 'Indie'),
+(45, 'Repos production'),
+(46, 'Don\'t panic game'),
+(47, 'Filosofia'),
+(48, 'infinity'),
+(49, 'Seatdown'),
+(50, 'Gigamic'),
+(51, 'Libellud'),
+(52, 'Blackplag'),
+(53, 'Hurricane'),
+(54, 'Spin Masters'),
+(55, 'Catchup'),
+(56, 'Space cowboys'),
+(57, 'Old chap');
 
 -- --------------------------------------------------------
 
@@ -95,6 +140,7 @@ INSERT INTO `editeur` (`id`, `nom`) VALUES
 
 CREATE TABLE `jeu` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `nom` varchar(60) NOT NULL,
   `description` varchar(150) NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -106,52 +152,39 @@ CREATE TABLE `jeu` (
   `style` varchar(60) NOT NULL,
   `difficulte` varchar(60) NOT NULL,
   `univers` varchar(60) NOT NULL,
-  `mot_clef` varchar(100) DEFAULT NULL
+  `mot_clef` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `jeu`
 --
 
-INSERT INTO `jeu` (`id`, `nom`, `description`, `image`, `editeur_id`, `joueurs_min`, `joueurs_max`, `duree`, `age_min`, `style`, `difficulte`, `univers`, `mot_clef`) VALUES
-(1, 'Compatibility', '', '', 1, 3, 8, 30, 10, 'Equipe', 'Facile', 'Communication', NULL),
-(2, 'Overseems', '', '', 2, 3, 6, 30, 14, 'Compétition', 'Moyenne', 'Bluff', NULL),
-(3, 'Munchkin', '', '', 3, 3, 6, 60, 12, 'Compétition', 'Moyenne', 'Fantastique / Cartes', NULL),
-(4, 'Time bomb', '', '', 4, 4, 8, 15, 8, 'Equipe', 'Facile', 'Rôle caché / bluff', NULL),
-(5, 'Exploding kittens', '', '', 5, 2, 5, 15, 7, 'Compétition', 'Très facile', 'Cartes', NULL),
-(6, 'Résistance', '', '', 6, 5, 10, 30, 13, 'Equipe', 'Facile', 'Rôle caché / bluff', NULL),
-(7, 'Mascarade', '', '', 7, 2, 13, 30, 10, 'Compétition', 'Facile', 'Rôle caché / bluff / mémoire', NULL),
-(8, 'Human punishment', '', '', 8, 4, 16, 45, 14, 'Equipe', 'Facile', 'Changement d\'équipe / futuriste', NULL),
-(9, 'Catane', '', '', 9, 3, 4, 75, 10, 'Compétition', 'Facile', 'Commerce / conquête', NULL),
-(10, 'Bang', '', '', 5, 3, 8, 30, 8, 'Equipe', 'Moyenne', 'Bluff / western', NULL),
-(11, 'Shards', '', '', 10, 2, 4, 30, 10, 'Deck build', 'Moyenne', 'Fantastique', NULL),
-(12, 'Magic maze', '', '', 11, 1, 8, 15, 8, 'Coopératif', 'Facile', 'Fantastique', NULL),
-(13, 'Galerapagos', '', '', 12, 3, 12, 20, 10, 'Coopérapute', 'Facile', 'Survie', NULL),
-(14, 'Alchimist', '', '', 4, 2, 4, 120, 13, 'Compétition', 'Difficile', 'Fantastique', NULL),
-(15, 'Dixit', '', '', 13, 3, 12, 30, 8, 'Compétition', 'Très facile', 'Narration / Fantastique', NULL),
-(16, 'Zombicide', '', '', 14, 1, 6, 60, 14, 'Coopératif', 'Moyenne', 'Survie', NULL),
-(17, 'Mr Jack Pocket', '', '', 15, 2, 2, 15, 12, 'Duel', 'Facile', 'Enquête', NULL),
-(18, 'Santorini', '', '', 16, 3, 4, 20, 8, 'Duel', 'Très facile', 'Fantastique', NULL),
-(19, 'Sobek', '', '', 17, 2, 2, 20, 10, 'Duel', 'Facile', 'Commerce', NULL),
-(20, 'Splandor', '', '', 18, 2, 2, 30, 10, 'Duel', 'Facile', 'Construction', NULL),
-(21, '7 Wonders duel', '', '', 7, 2, 2, 30, 10, 'Duel', 'Moyenne', 'Construction / draft', NULL),
-(22, 'Acropolis', '', '', 12, 1, 4, 25, 8, 'Compétition', 'Facile', 'Construction / tuiles', NULL),
-(23, 'The crew', '', '', 4, 3, 5, 20, 10, 'Coopératif', 'Facile', 'Futuriste / cartes', NULL),
-(24, 'Fiesta de los muertos', '', '', 19, 4, 8, 15, 12, 'Coopératif', 'Très facile', 'Communication / drôle', NULL);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `jeu_user`
---
-
-CREATE TABLE `jeu_user` (
-  `id` int(11) NOT NULL,
-  `jeu_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `note` int(11) NOT NULL,
-  `possede` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `jeu` (`id`, `user_id`, `nom`, `description`, `image`, `editeur_id`, `joueurs_min`, `joueurs_max`, `duree`, `age_min`, `style`, `difficulte`, `univers`, `mot_clef`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Compatibility', '', './assets/images/Compatibility.jpg', 1, 3, 8, 30, 10, 'Equipe', 'Facile', 'Communication', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(2, 1, 'Overseems', '', ' ./assets/images/Overseems.jpg', 2, 3, 6, 30, 14, 'Compétition', 'Moyenne', 'Bluff', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(3, 1, 'Munchkin', '', ' ./assets/images/Munchkin.jpg', 3, 3, 6, 60, 12, 'Compétition', 'Moyenne', 'Fantastique / Cartes', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(5, 0, 'Exploding kittens', '', '', 5, 2, 5, 15, 7, 'Compétition', 'Très facile', 'Cartes', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(6, 0, 'Résistance', '', '', 6, 5, 10, 30, 13, 'Equipe', 'Facile', 'Rôle caché / bluff', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(7, 0, 'Mascarade', '', '', 7, 2, 13, 30, 10, 'Compétition', 'Facile', 'Rôle caché / bluff / mémoire', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(8, 0, 'Human punishment', '', '', 8, 4, 16, 45, 14, 'Equipe', 'Facile', 'Changement d\'équipe / futuriste', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(9, 0, 'Catane', '', '', 9, 3, 4, 75, 10, 'Compétition', 'Facile', 'Commerce / conquête', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(10, 0, 'Bang', '', '', 5, 3, 8, 30, 8, 'Equipe', 'Moyenne', 'Bluff / western', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(11, 0, 'Shards', '', '', 10, 2, 4, 30, 10, 'Deck build', 'Moyenne', 'Fantastique', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(12, 0, 'Magic maze', '', '', 11, 1, 8, 15, 8, 'Coopératif', 'Facile', 'Fantastique', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(13, 0, 'Galerapagos', '', '', 12, 3, 12, 20, 10, 'Coopérapute', 'Facile', 'Survie', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(14, 0, 'Alchimist', '', '', 4, 2, 4, 120, 13, 'Compétition', 'Difficile', 'Fantastique', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(15, 0, 'Dixit', '', '', 13, 3, 12, 30, 8, 'Compétition', 'Très facile', 'Narration / Fantastique', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(16, 0, 'Zombicide', '', '', 14, 1, 6, 60, 14, 'Coopératif', 'Moyenne', 'Survie', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(17, 0, 'Mr Jack Pocket', '', '', 15, 2, 2, 15, 12, 'Duel', 'Facile', 'Enquête', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(18, 0, 'Santorini', '', '', 16, 3, 4, 20, 8, 'Duel', 'Très facile', 'Fantastique', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(19, 0, 'Sobek', '', '', 17, 2, 2, 20, 10, 'Duel', 'Facile', 'Commerce', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(20, 0, 'Splandor', '', '', 18, 2, 2, 30, 10, 'Duel', 'Facile', 'Construction', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(21, 0, '7 Wonders duel', '', '', 7, 2, 2, 30, 10, 'Duel', 'Moyenne', 'Construction / draft', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(22, 0, 'Acropolis', '', '', 12, 1, 4, 25, 8, 'Compétition', 'Facile', 'Construction / tuiles', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(23, 0, 'The crew', '', '', 4, 3, 5, 20, 10, 'Coopératif', 'Facile', 'Futuriste / cartes', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22'),
+(24, 0, 'Fiesta de los muertos', '', '', 19, 4, 8, 15, 12, 'Coopératif', 'Très facile', 'Communication / drôle', '', '2024-03-06 11:45:22', '2024-03-06 11:45:22');
 
 -- --------------------------------------------------------
 
@@ -162,10 +195,17 @@ CREATE TABLE `jeu_user` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) DEFAULT NULL,
+  `password` varchar(100) NOT NULL,
   `roles` varchar(120) NOT NULL DEFAULT '[]',
   `registered_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `password`, `roles`, `registered_at`) VALUES
+(1, 'marc.lesoudier@gmail.com', '$2y$10$R9L.T3JpH861RjaziU7KPOkepcJiGQvmKbGF7A34358A.NXsjLfra', '[\"ROLE_ADMIN\",\"ROLE_MEMBER\"]', '2024-03-06 11:36:41');
 
 --
 -- Index pour les tables déchargées
@@ -176,13 +216,14 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_comment_jeu` (`jeu_id`);
+  ADD KEY `fk_jeu_id` (`jeu_id`);
 
 --
 -- Index pour la table `contact`
 --
 ALTER TABLE `contact`
-  ADD KEY `fk_contact_user` (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_contact_user_id` (`user_id`);
 
 --
 -- Index pour la table `editeur`
@@ -195,15 +236,8 @@ ALTER TABLE `editeur`
 --
 ALTER TABLE `jeu`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_jeu_editeur` (`editeur_id`);
-
---
--- Index pour la table `jeu_user`
---
-ALTER TABLE `jeu_user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_jeu_user_jeu` (`jeu_id`),
-  ADD KEY `fk_jeu_user_user` (`user_id`);
+  ADD KEY `fk_user_id` (`user_id`),
+  ADD KEY `fk_editeur_id` (`editeur_id`);
 
 --
 -- Index pour la table `user`
@@ -222,28 +256,28 @@ ALTER TABLE `comment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `editeur`
 --
 ALTER TABLE `editeur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT pour la table `jeu`
 --
 ALTER TABLE `jeu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT pour la table `jeu_user`
---
-ALTER TABLE `jeu_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
@@ -253,26 +287,19 @@ ALTER TABLE `user`
 -- Contraintes pour la table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `fk_comment_jeu` FOREIGN KEY (`jeu_id`) REFERENCES `jeu` (`id`);
+  ADD CONSTRAINT `fk_jeu_id` FOREIGN KEY (`jeu_id`) REFERENCES `jeu` (`id`);
 
 --
 -- Contraintes pour la table `contact`
 --
 ALTER TABLE `contact`
-  ADD CONSTRAINT `fk_contact_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `fk_contact_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Contraintes pour la table `jeu`
 --
 ALTER TABLE `jeu`
-  ADD CONSTRAINT `fk_jeu_editeur` FOREIGN KEY (`editeur_id`) REFERENCES `editeur` (`id`);
-
---
--- Contraintes pour la table `jeu_user`
---
-ALTER TABLE `jeu_user`
-  ADD CONSTRAINT `fk_jeu_user_jeu` FOREIGN KEY (`jeu_id`) REFERENCES `jeu` (`id`),
-  ADD CONSTRAINT `fk_jeu_user_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `fk_editeur_id` FOREIGN KEY (`editeur_id`) REFERENCES `editeur` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
